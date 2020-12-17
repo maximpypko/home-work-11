@@ -1,23 +1,20 @@
 const product = {
-  song: 'The girl',
-  author: 'Roudeep',
-  genre: 'deep',
+    song: 'The girl',
+    author: 'Roudeep',
+    genre: 'deep',
 };
-
+  
 function getSong(rating) {
-  console.log(this.song + '-' + this.author + ', ' + rating);
+    console.log(this.song + '-' + this.author + ', ' + rating);
+};
+  
+const myBind = function (func, context, ...rest) {
+  
+  return function (...arguments) {
+    return func.call(context, ...rest.concat(arguments))
+  }
 };
 
-function myBind(func, context, ...rest) {
+let result = myBind(getSong, product, 'rating-5');
+result();
 
-  return function (...arguments) {
-    
-    context.func = func;
-    const result = context.func(...rest, ...arguments);
-    delete context.func;
-
-    return result;
-  }
-}
-
-myBind(getSong, product, 'rating-5')();
